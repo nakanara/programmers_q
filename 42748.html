@@ -1,0 +1,35 @@
+<html>
+
+<script type="text/javascript">
+  function solution(array, commands) {
+    return commands.map(([f,t,k]) => {
+      return array.slice(f-1, t).sort((a,b) => a-b)[k-1];
+    });
+  }
+  
+  function solution2(array, commands) {
+    return commands.map(v => {
+      return array.slice(v[0]-1, v[1]).sort((a,b) => a-b)[v[2]-1];
+    });
+  }
+
+  function solution1(array, commands) {
+    var answer = [];
+
+    commands.forEach(function(cmd){
+      answer.push(
+        array.slice(cmd[0]-1, cmd[1])
+          .sort((a,b)=>{return a-b;})
+          [cmd[2]-1]
+      );
+    });
+    
+    console.log(answer);
+    return answer;
+  }
+
+
+let t = solution([1, 5, 2, 6, 3, 7, 4],	[[2, 5, 3], [4, 4, 1], [1, 7, 3]]);
+console.log(t);
+</script>
+</html>
