@@ -1,0 +1,58 @@
+<html>
+
+<script type="text/javascript">
+ 
+
+ function solution3(citations) {
+     citations = citations.sort(sorting);
+     var i = 0;
+     while(i + 1 <= citations[i]){
+         i++;
+     }
+     return i;
+
+
+     function sorting(a, b){
+         return b - a;
+     }
+}
+function solution1(citations) {
+  var answer = Math.max.apply(null, citations);
+
+  for(; answer > 0; answer--){
+    let over_h = 0;
+
+    for(let n in citations) {
+      let citation = citations[n];
+
+      if(citation >= answer) ++over_h;
+      if(over_h == answer) return answer;
+    }
+  }
+
+  return 0;
+}
+
+function solution(citations) {
+  var answer = 0;
+  console.log(citations);
+  citations.sort((a, b) => b - a);
+
+  for(let i = 0; i < citations.length; i++) {
+      if(citations[i] > i) answer++;
+      else break;
+  }
+  return answer;
+}
+
+
+
+console.log( solution3([3, 0, 6, 1, 5]));
+console.log( solution3([6, 10, 2]));
+console.log( solution3([22,33]));
+console.log( solution3([4, 3, 3, 3, 3])); 
+console.log( solution3([2, 7, 5])); 
+
+
+</script>
+</html>
