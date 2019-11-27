@@ -42,24 +42,52 @@ Explanation
 
 
 function solution(n) {
-  let answer = Number(1);
+  let answer = [];
+
+  const convertNum = (n) => Array.from(String(n)).reverse().map( (v)=> Number(v));
+  const multiply = (a, b) => {
+
+    let result = [];  // 결과값
+    let upVal = 0;  // 상위 전달 값
+
+    for(let i=0; i < a.length; i++) {
+
+      let av = a[i];
+      upVal = 0;  // 새로운 row
+
+      for(let j=0; j < b.length; j++) {
+        let an = b[j];
+
+        let multiple = av*an; // 계산
+        //console.log(`av${av} an${an} mltiple=${multiple} upVal=${upVal}`)
+
+        multiple =  multiple +(result[j+i] || 0);  // 이미 저장되어 있던 값
+        if(upVal > 0) multiple += upVal;  // 이전 계산에서 올라온 값
+
+
+        upVal = Math.floor(multiple/10); // 다음 수
+        result[j+i] = multiple%10;  // 현재 남은수
+
+        //console.log(`multiplu ${multiple} upVal= ${upVal} answer${result[j+i]}`)
+      }
+      if(upVal > 0) result.push(upVal);
+      //console.log(result);
+    }
+
+    return result; 
+
+  }
+
+  answer = convertNum(n);
+
+  for(let i=n-1; i > 0; i--) {
+    let nextVal = convertNum(i);
+
+    answer = multiply(answer, nextVal);
+    //console.log(`${n} ==> ${answer}`)
+  }  
   
-
-  for(let i=n; i >  0; i--) {
-    console.log('i=' + i + '/ ans=' + answer);
-    answer *= i;
-  }
-  let strnum = String(answer);
-  const patten = /(\d+).(\d+)e\+(\d+)/
-
-  let result = strnum.match(patten);
-  if(!result) return strnum;
-  else {
-    console.log(strnum);
-    return `${result[1]}${result[2]}${ Array(result[3]-result[2].length).fill('0').join('')}`
-
-  }
-
+  return answer.reverse().join('');
 }
 
 console.log( solution(25));

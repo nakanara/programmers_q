@@ -62,7 +62,6 @@ function solution(jobs) {
 
   const getNextWork = (curTime)=>{
     for(let i=0; i < arrJobs.length; i++) {
-      //console.log('curTime=' + curTime +'/arr=' + arrJobs[i]['start']);
       if(arrJobs[i]['start'] <= curTime) {
         return arrJobs.splice(i, 1)[0];
       }
@@ -86,28 +85,9 @@ function solution(jobs) {
     if(arrJobs.length == 0) isRun = false;
   }
 
-  
-  // for(let i=0; i < arrJobs.length;) {
-  //   console.log('i===' + i);
-  //   let v = arrJobs[i];
-  //   if(v.start > totalCnt) {// 시작시간 미달시.
-  //     totalCnt = v.start; // 전체 시간
-  //     continue;  
-  //   }
-
-  //   console.log('i=' + i +'/totla=' + answer + '/t=' + totalCnt);
-  //   console.log (v);
-
-  //   answer += (totalCnt-v.start) + v.time;  // 실제 작업 시간
-  //   totalCnt += v.time;
-  //   i++;
-  //  // console.log(v);
-  //  // console.log(totalCnt);
-  // }
-//  console.log(totalCnt/jobs.length);
   return Math.floor( answer/jobs.length );
 }
 
-console.log( solution([[0, 3], [1, 9], [2, 6]]));
+console.log( solution([[0, 3], [1, 9], [2, 6]])); // 9
 console.log( solution([[24, 10], [18, 39], [34, 20], [37, 5], [47, 22], [20, 47], [15, 2], [15, 34], [35, 43], [26, 1]]));//74
 
