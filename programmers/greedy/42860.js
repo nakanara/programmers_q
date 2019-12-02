@@ -1,5 +1,8 @@
 'use strict';
 /*
+
+https://programmers.co.kr/learn/courses/30/lessons/42860?language=javascript
+
 컴파일 옵션
 조이스틱
 문제 설명
@@ -53,11 +56,14 @@ function solution(name) {
         
   };
 
-  let total = word.reduce( (t, v) => t+= findWord(v), 0);
+
+
+
+  // let total = word.reduce( (t, v) => t+= findWord(v), 0);
   
-  total += size-1;
-  console.log(total);
-  return answer;
+  // total += size-1;
+  // console.log(total);
+  // return answer;
 }
 //ABCDEFGHIJKLMNOPQRSTUVWXYZ
 //console.log( solution('JEROEN'));// 56
