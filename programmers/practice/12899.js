@@ -26,26 +26,33 @@ n	result
 4	11
 */
 
-
 function solution(n) {
+  return n === 0 ? '' : solution(parseInt((n - 1) / 3)) + [1, 2, 4][(n - 1) % 3];
+}
+
+function solution1(n) {
   let answer = [];
   let [tmp, b] = [n, 0];
   let table = [1,2,4];
 
-  while(tmp != 0) {
-    [tmp,b] = [Math.floor(tmp/4), (tmp%4)];
-    console.log(`....${b}`)
-    answer.push((b==0)? 1 : b);
-  }
-  console.log(`${n} ${answer}`)
   
-  //return answer.reverse().map();
+  while(tmp > 0) {
+    [tmp, b] = [Math.floor(tmp/3), tmp%3];
+    
+    if(b === 0) {
+      b = 3;
+      tmp -=1;
+    }
+    answer.push(b);
+  }
+  return answer.reverse().map( v => table[v-1]).join('');
 }
-console.log( solution(1));
-console.log( solution(2));
-console.log( solution(3));
-console.log( solution(4));
-console.log( solution(5));
-console.log( solution(6));
-console.log( solution(7));
-console.log( solution(11));
+for(let i=1 ; i < 15; i++)
+  console.log( solution(i));
+// console.log( solution(2));
+// console.log( solution(3));
+// console.log( solution(4));
+// console.log( solution(5));
+// console.log( solution(6));
+// console.log( solution(7));
+// console.log( solution(11));
