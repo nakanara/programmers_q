@@ -32,20 +32,33 @@ function solution(n) {
   let [tmp, b] = [n, 0];
   let table = [1,2,4];
 
-  while(tmp != 0) {
-    [tmp,b] = [Math.floor(tmp/4), (tmp%4)];
-    console.log(`....${b}`)
-    answer.push((b==0)? 1 : b);
+  while(tmp > 0) {
+    let a = Math.floor(tmp/3);
+    let b = (tmp%3);
+
+    if(b == 0) {
+      a -= 1;
+      b = 3;
+    }
+
+    console.log(`${n} ${tmp} // ${a} // ${b}`)
+    // if( b == 0) answer.push(a);
+    // else answer.push(b);
+
+    answer.push(b);
+    tmp = a;
   }
-  console.log(`${n} ${answer}`)
-  
-  //return answer.reverse().map();
+
+  console.log( answer.reverse().map( v => table[v-1]));
 }
-console.log( solution(1));
-console.log( solution(2));
-console.log( solution(3));
-console.log( solution(4));
-console.log( solution(5));
-console.log( solution(6));
-console.log( solution(7));
-console.log( solution(11));
+
+for(let i=1; i < 12; i++) 
+  console.log( solution(i));
+// console.log( solution(5));
+// console.log( solution(3));
+// console.log( solution(4));
+// console.log( solution(5));
+// console.log( solution(6));
+// console.log( solution(7));
+// console.log( solution(10));
+// console.log( solution(11));

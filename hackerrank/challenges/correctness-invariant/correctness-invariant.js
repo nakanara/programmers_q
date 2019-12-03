@@ -1,6 +1,6 @@
 'use strict';
 /*
-
+ 단어 구하기 -- 작업 중
 */
 
 
@@ -93,6 +93,8 @@ function solution(crossword, hints) {
 
   for(let i=0; i < arrHints.length; i++) {
     let newHints = arrHints.slice();
+    let c = newHints.shift();
+    newHints.push(c);
     let result = searchPassword(ysize, xsize, crossword.slice(), newHints);
 
     if(result)
@@ -102,16 +104,27 @@ function solution(crossword, hints) {
   return answer;
 }
 
-console.log( solution(
-  ['+-++++++++'
-    ,'+-++++++++'
-    ,'+-++++++++'
-    ,'+-----++++'
-    ,'+-+++-++++'
-    ,'+-+++-++++'
-    ,'+++++-++++'
-    ,'++------++'
-    ,'+++++-++++'
-    ,'+++++-++++'],
-    'LONDON;DELHI;ICELAND;ANKARA'
- ));
+const test = (a,b) => {
+  console.log(arguments.length);
+  for(let s of arguments) {
+    console.log(`${s}`)
+  }
+  console.log(`${a} ${b}`)
+}
+
+let arr = [1,2,3,4,5,6,7,8,9,10];
+test(1,2,3);
+
+// console.log( solution(
+//   ['+-++++++++'
+//     ,'+-++++++++'
+//     ,'+-++++++++'
+//     ,'+-----++++'
+//     ,'+-+++-++++'
+//     ,'+-+++-++++'
+//     ,'+++++-++++'
+//     ,'++------++'
+//     ,'+++++-++++'
+//     ,'+++++-++++'],
+//     'LONDON;DELHI;ICELAND;ANKARA'
+//  ));

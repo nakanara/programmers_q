@@ -37,7 +37,7 @@ function solution(a,b) {
   return answer;
 }
 
-//console.log( solution([2,4], [16,32,96])); /3
+console.log( solution([2,4], [16,32,96])); //3
 //console.log( solution([2,6], [24,36]));//2
 //console.log( solution([2], [20, 30, 12])); //1
-console.log( solution([3,4], [24, 48]));//2
+//console.log( solution([3,4], [24, 48]));//2
