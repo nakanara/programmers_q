@@ -62,6 +62,15 @@ function solution(n, lost, reserve) {
   return answer.filter( v => v >0).length;
 }
 
+
+/**  */
+function solution1(n, lost, reserve) {      
+  return n - lost.filter(a => {
+      const b = reserve.find(r => Math.abs(r-a) <= 1)
+      if(!b) return true
+      reserve = reserve.filter(r => r !== b)
+  }).length
+}
 //1234 567
 
 
