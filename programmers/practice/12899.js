@@ -26,8 +26,11 @@ n	result
 4	11
 */
 
-
 function solution(n) {
+  return n === 0 ? '' : solution(parseInt((n - 1) / 3)) + [1, 2, 4][(n - 1) % 3];
+}
+
+function solution1(n) {
   let answer = [];
   let [tmp, b] = [n, 0];
   let table = [1,2,4];
@@ -60,5 +63,8 @@ for(let i=1; i < 12; i++)
 // console.log( solution(5));
 // console.log( solution(6));
 // console.log( solution(7));
+<<<<<<< HEAD
 // console.log( solution(10));
+=======
+>>>>>>> 807d9298db3a2bae0237126e1130d6d793ea31a2
 // console.log( solution(11));
