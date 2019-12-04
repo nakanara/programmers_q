@@ -147,16 +147,19 @@ function solution1(relation) {
     let isDuplicate = isCandidateKey(c);
     //console.log(`isCandidate = ${isDuplicate}  // ${c}`);
 
-    if(!isDuplicate) continue; 
+    //if(!isDuplicate) continue; 
 
     let flag = checkIsKey(c);
-    //console.log(`flag = ${isDuplicate}  // ${c} // ${flag}`);
+    console.log(`flag = ${isDuplicate}  // ${c} // ${flag}`);
     if(flag) {
       answer.push(c);
     }
   }
 
-  //console.log(`${answer}`)
+  
+  answer.sort((a,b) => a.length - b.length);
+  console.log(answer);
+  
   return answer.length;
 }
 
@@ -166,7 +169,7 @@ function solution1(relation) {
 
 //console.log( solution([['a',1,4], [2,1,5], ['a',2,4]]));//2
 
-console.log( solution([[1,2,4], [2,2,3], [3,1,1]]));//2
+console.log( solution1([[1,2,4], [2,2,3], [3,1,1]]));//2
 
 /*
 1,2,4
