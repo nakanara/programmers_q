@@ -34,7 +34,7 @@ JAN	23
 */
 
 
-function solution(name) {
+function solution1(name) {
   let answer = 0;
   let size = name.length;
   let changeFlag = Array(size).fill(0);
@@ -110,14 +110,78 @@ function solution(name) {
   return answer;
 }
 
+
+const solution = (name) => {
+  let [aChar, zChar] = ['A'.charCodeAt(0), 'Z'.charCodeAt(0)];
+  const upDownCnt = (c) => (c-aChar > zChar-c+1)? zChar-c+1 : c-aChar;
+
+  let nName =[];
+  let size = name.length;
+  
+  for(let s of name) {
+    nName.push(upDownCnt(s.charCodeAt(0)));
+  }
+
+
+
+  const findCount = (reName, dir) => {
+
+    let i=0;
+    let answer = 0;
+    while(true) {
+      
+      if(reName[i]  > 0) {
+        answer += reName[i];
+        reName[i] = 0;
+      }
+
+      // console.log(`1==> answer ${answer} cnt=${cnt} i=${i}`);
+
+      if( 0 === Math.max(...reName)) return answer;
+
+      // 다음 장소 찾기.
+      for(let gap =1; gap < size; gap++) {
+
+        let r = i+gap, l = i-gap;
+        if(r > size-1) r = (i+gap)%size;
+        if(l < 0) l = size + (i-gap);
+        
+        // console.log(`2==> i=${i} gap= ${gap} / r=${r}:: ${reName[r]} l=${l}:: ${reName[l]} answer=${answer}`)
+        
+        if(dir === false && reName[l] !== 0) { // direct flase인 경우만 선실행.
+          i = l;
+          answer +=gap;
+          break;
+        }
+        else if(reName[r] !== 0) {
+          i = r;
+          answer += gap;
+          break;
+        } 
+        else if(reName[l] !== 0) {
+          i = l;
+          answer +=gap;
+          break;
+        }
+      }
+    }
+  }
+
+  let rcnt = findCount(nName.slice(), true); // ->
+  let lcnt = findCount(nName.slice(), false);
+
+  // console.log(`rCnt = ${rcnt} lCnt = ${lcnt}`);
+  return rcnt > lcnt? lcnt: rcnt;
+
+}
 // console.log( solution('JEROEN')); // 56
 // console.log( solution('JAN')); // 23
-// console.log( solution('BBAABB')); // 23
+// console.log( solution('BBAABB')); // 8
 // console.log( solution('ABABAAAAAAABA')); // 11
 // console.log( solution('ABAAAAAAABA')); // 6
 // console.log('AAB=' + solution('AAB')); // 2
 // console.log('AABAAAAAAABBB=' + solution('AABAAAAAAABBB')); //12
 // console.log('ZZZ=' + solution('ZZZ')); //5
-// console.log('BBBBAAAAAB=' + solution('BBBBAAAAAB')); //10
-console.log('BBBBAAAABA=' + solution('BBBBAAAABA')); //12
-
+// console.log('BBBBAAAAAB=' + solution('BBBBAAAAAB')); //10 좌우 문제??
+// console.log('BBBBAAAABA=' + solution('BBBBAAAABA')); //13
+console.log( solution('XXAAAAAAAAAAAAAXX'));
