@@ -1,0 +1,306 @@
+
+<!-- saved from url=(0111)https://design-12173606-3te54oj56fb.hrcdn.net/recruit/attempts/12173606/questions/3te54oj56fb/render/238884722# -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">
+ /* Add your css styles here */
+.modal-cover{
+  position: fixed;
+  top: 0; 
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+  background-color:rgba(0,0,0,0.5);
+}
+
+.modal-background {
+  position: fixed;
+  top: 0; 
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 210;
+}
+.modal-container {
+  position: relative;
+  width: 400px;
+  top:50%;
+  margin: 0 auto;
+  background-color: #fff;
+  text-align: center;
+}
+
+.btn-group {
+  padding: 2px;
+  text-align: right;
+}
+
+.btn-group .btn {
+  cursor: pointer;
+}
+
+.btn-default {
+  background-color: #fff;
+  color: #000;
+}
+.btn-success {
+  background-color: blue;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: red;
+  color: #fff;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #000;
+}
+</style>
+ 
+
+
+<style>
+  body {font-family:AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif}
+  .cover {position: absolute; left: 0; top: 0; z-index: 200; width: 100%; height: 100%;}
+  .dimmed {background-color: #000; z-index: 201; opacity: 0.4; position: fixed; left: 0; top: 0; width: 100%; height: 100%;}
+  .wrapper {position: absolute; width: 100%; height: 100%;}
+  .layer {left: 50%; top: 50%; position: absolute; background-color: #fff; width: 320px; height: 70px;}
+  .content {width: 100%; margin: 2px; border: 1px solid #aaa;}
+  .content .title {font-size:2em; font-weight:bold;}
+</style>
+<script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
+<body style="
+    /* height: 100vh; */
+    overflow-y: hidden;
+">
+<div>
+  
+  <article class="content">
+    <span class="title">나의 블로그</span>
+    <pre>      블로그 내용은 다음과 같습니다.
+      모달 메시지 창 만들기 입니다.
+    </pre>
+  </article>
+  <div class="btn-group">
+    <label class="btn btn-delete">삭제</label>
+    <label class="btn btn-help">도움말</label>
+  </div>
+ 
+</div>
+
+<template id="modal_temp"></template>
+<!--
+<div class="cover">
+  <div class="dimmed"></div>
+  <div class="wrapper" style="z-index: 201;">
+    <div class="layer">
+      <article>
+        <p>샘플 마크업입니다. </p>
+      </article>
+      <footer>
+        <a href="#">확인</a>
+        <a href="#">취소</a>
+      </footer>
+    </div>
+  </div>
+</div>
+-->
+
+
+ <script type="text/javascript">
+ (()=>{
+
+/**
+ * 모달 생성 정보
+ * 
+ * {
+ *   context: 모달 내용
+ *   btns: [  // 버튼
+ *     {
+ *       label : 라벨명
+ *       cls: 버튼 스타일 (default|success|danger|warning)
+ *       callfn: 콜백 함수 
+ *     }
+ *   ]
+ * }
+ */
+  if(window.modal) return;
+  
+  let modal = {};
+
+  let modalCount = 0; // 열려진 모달
+  let modalStack = [];
+
+  /**
+   * 처음일 경우 본문을 덮을 div
+   */
+  const createCover = () => {
+    let cover = document.createElement('div');
+    cover.className = 'modal-cover';
+
+    document.querySelector('body').appendChild(cover);
+  }
+
+  /**
+   * 모달창이 없는 경우 Cover 삭제.
+   */
+  const destoryCover = () => {
+    let cover = document.querySelector('div.modal-cover');
+    cover.remove();
+  }
+
+  /**
+   * 모달 창 표시.
+   */
+  const openModal = (conf) => {
+    let modalConfig = {
+      content: '모달 내용',
+      btns: [
+        {label:'버튼명', cls:'success', callfn:''}
+      ]
+    }
+    // 버튼이 없는 경우 기본 값, 닫기 <-- 추가.
+    
+    if(modalCount === 0) {
+      createCover();
+    }
+    
+    // 버튼이 없을 경우 기본 설정.
+    let btns = conf['btns'] || [];
+
+    if(btns.length === 0) { // Default 설정
+      btns.push({label:'닫기', callfn: closeModal });
+      conf['btns'] = btns;
+    }
+
+    modalStack.push(conf);
+
+    // 기존 팝업이 있다면 숨김 처리.
+    if(modalCount !== 0) {
+      document.querySelector(`div.modal-${modalCount}`).style.display= 'none';
+    }
+    modalCount++;
+
+    let modal = document.createElement('div');
+    modal.classList.add ('modal-background', `modal-${modalCount}`);
+
+    let btn_temp = '';
+    for(let i=0; i < btns.length; i++) {
+      let b = btns[i];
+      btn_temp += `<label data-btn-idx='${i}' class="btn ${(b['cls'])? 'btn-' + b['cls']:'btn-default'}">${b['label']}</label>`;
+    }
+
+    let template = 
+    `
+    <div data-modal-idx='${modalCount}' class='modal modal-container'>
+      <div class='modal-title'>
+      </div>
+      <div>
+      ${conf.content}
+      </div>
+      <div class='btn-group'>
+        ${btn_temp}
+      </div>
+    </div>
+    `;
+    modal.innerHTML = template;
+    document.querySelector('.modal-cover').appendChild(modal);
+
+    // 이벤트 등록.
+    modal.querySelectorAll('label.btn').forEach( v => v.addEventListener('click', fnBtnClick));
+
+  }
+
+  /**
+   * 모달 창 닫기
+   */
+  const closeModal = () => {
+
+    let modal = document.querySelector(`div.modal-${modalCount}`);
+    modal.remove();
+    modalStack.pop(); // 속성 제거
+    
+    //console.log(`Modal Close idx=> ${modalCount}`);
+    modalCount--;
+
+    if(modalCount !== 0) {
+      document.querySelector(`div.modal-${modalCount}`).style.display = 'block';
+    }
+
+    // 남은 모달이 없는 경우 cover 제거.
+    if(modalCount === 0) {
+        destoryCover();
+    }
+    if(modalCount < 0) {
+      console.log(`Error Modal Count=> ${modalCount}`);
+    }
+  }
+
+  const fnBtnClick = (e) => {
+    let component = e.target || {};
+
+    let btnIdx = component.getAttribute('data-btn-idx');
+    let conf = modalStack[modalCount-1]; // 마지막 정보
+    let btn = conf.btns[btnIdx]; // 클릭된 정보
+
+    if(typeof btn['callfn'] === 'function') {
+      btn['callfn']();
+    }
+  }
+
+  modal.open = openModal;
+  modal.close = closeModal;
+
+  window.modal = modal;
+})();
+
+
+/* ---> */
+
+{
+  // 멀티 알림 창
+  // 삭제 버튼
+  let delBtn = document.querySelector('.btn-delete');
+  delBtn.addEventListener("click", () => {
+    modal.open({
+      content: '블로그의 글을 삭제하시겠습니까?</br> 삭제 후 복구는 불가능합니다.',
+      btns: [
+        {label:'예', cls:'warning', callfn: ()=>{
+          modal.open({
+            content: '삭제하시겠습니까?'
+            ,btns: [
+              {label:'예', cls:'danger', callfn: ()=> modal.close() },
+              {label:'아니오', cls:'', callfn:() => modal.close()}
+            ]
+          })
+        }},
+        {label:'아니오', cls:'', callfn: () => modal.close()}
+      ]
+    });
+  });
+
+  // 버튼 Default 구현.
+  let helpBtn = document.querySelector('.btn-help');
+  helpBtn.addEventListener('click', () => {
+    modal.open({
+      content: `* 도움말 *</br>
+      글쓰기: 쓰기 버튼을 클릭하면 새로운 글을 작성 할 수 있습니다.</br>
+      목록: 글 목록으로 이동합니다.</br>
+      삭제: 블로그 글을 삭제 할 경우 복구가 불가능합니다.`
+    })
+  })
+}
+ </script>
+<div class="modal-cover"><div class="modal-background modal-1" style="display: block;">
+    <div data-modal-idx="1" class="modal modal-container">
+      <div class="modal-title">
+      </div>
+      <div>
+      블로그의 글을 삭제하시겠습니까?<br> 삭제 후 복구는 불가능합니다.
+      </div>
+      <div class="btn-group">
+        <label data-btn-idx="0" class="btn btn-warning">예</label><label data-btn-idx="1" class="btn btn-default">아니오</label>
+      </div>
+    </div>
+    </div></div></body></html>
