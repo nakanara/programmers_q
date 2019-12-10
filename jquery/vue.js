@@ -11,22 +11,36 @@
 
   /*  */
 
+	/** 
+	* Object 기본 비교 대상
+	**/
   var emptyObject = Object.freeze({});
 
   // These helpers produce better VM code in JS engines due to their
   // explicitness and function inlining.
+  /**
+  * Undefined 여부
+  **/
   function isUndef (v) {
     return v === undefined || v === null
   }
-
+	/**
+	 * 값 존재 여부
+	 **/
   function isDef (v) {
     return v !== undefined && v !== null
   }
 
+	/**
+	true 
+	**/
   function isTrue (v) {
     return v === true
   }
 
+	/**
+	False
+	**/
   function isFalse (v) {
     return v === false
   }
@@ -34,6 +48,9 @@
   /**
    * Check if value is primitive.
    */
+   /**
+   * 원초적 데이터여부 
+   **/
   function isPrimitive (value) {
     return (
       typeof value === 'string' ||
@@ -49,6 +66,9 @@
    * Objects from primitive values when we know the value
    * is a JSON-compliant type.
    */
+   /**
+   * object여부
+   **/
   function isObject (obj) {
     return obj !== null && typeof obj === 'object'
   }
@@ -77,11 +97,17 @@
   /**
    * Check if val is a valid array index.
    */
+   /**
+   배열 자릿수 
+   **/
   function isValidArrayIndex (val) {
     var n = parseFloat(String(val));
     return n >= 0 && Math.floor(n) === n && isFinite(val)
   }
 
+	/** 
+	비동기 여부
+	**/
   function isPromise (val) {
     return (
       isDef(val) &&
@@ -93,6 +119,9 @@
   /**
    * Convert a value to a string that is actually rendered.
    */
+   /**
+   toString
+   **/
   function toString (val) {
     return val == null
       ? ''
@@ -114,6 +143,9 @@
    * Make a map and return a function for checking if a key
    * is in that map.
    */
+   /**
+   주어진 문자열로 배열 생성
+   **/
   function makeMap (
     str,
     expectsLowerCase
@@ -131,11 +163,17 @@
   /**
    * Check if a tag is a built-in tag.
    */
+   /**
+   BuiltInTag -- 태그 여부
+   **/
   var isBuiltInTag = makeMap('slot,component', true);
 
   /**
    * Check if an attribute is a reserved attribute.
    */
+   /**
+   Reserved key, ref, slot, slot-scope, is
+   **/
   var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
 
   /**
@@ -764,11 +802,14 @@
 
   /*  */
 
+	/** 
+	* Vue노드기본
+	**/
   var VNode = function VNode (
-    tag,
-    data,
-    children,
-    text,
+    tag, //태그
+    data, // 데이터
+    children,//자식
+    text,//텍스트
     elm,
     context,
     componentOptions,
@@ -809,6 +850,10 @@
 
   Object.defineProperties( VNode.prototype, prototypeAccessors );
 
+	/**
+	 * 빈 노드생성
+	 * text 값 미존재시 ''
+	 **/
   var createEmptyVNode = function (text) {
     if ( text === void 0 ) text = '';
 
@@ -818,6 +863,9 @@
     return node
   };
 
+	/**
+	 * 텍스트노드생성
+	 **/
   function createTextVNode (val) {
     return new VNode(undefined, undefined, undefined, String(val))
   }
@@ -826,6 +874,9 @@
   // used for static nodes and slot nodes because they may be reused across
   // multiple renders, cloning them avoids errors when DOM manipulations rely
   // on their elm reference.
+  /**
+   * 노드복사
+   **/
   function cloneVNode (vnode) {
     var cloned = new VNode(
       vnode.tag,
@@ -3360,6 +3411,9 @@
     return _createElement(context, tag, data, children, normalizationType)
   }
 
+	/** 
+	 * Element 생성
+	 **/
   function _createElement (
     context,
     tag,
