@@ -10,4 +10,4 @@ function solution(arr) {
   return answer;
 }
 
-console.log( solution( ));
+console.log( solution( )); // 

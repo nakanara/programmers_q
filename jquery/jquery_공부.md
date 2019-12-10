@@ -2,54 +2,54 @@
 
 ## Sizzle
 
-support
-Expr
-getText
-isXML
-tokenize
-compile
-select
-outermostContext
-sortInput
-hasDuplicate
+* support
+* Expr
+* getText
+* isXML
+* tokenize
+* compile
+* select
+* outermostContext
+* sortInput
+* hasDuplicate
 
-setDocument
-document
-docElem
-documentIsHTML
-rbuggyQSA
-rbuggyMatches
-matches
-contains
-expando: "sizzle"+1 * new Data() // 리미트?
-preferredDoc : window.document
-dirruns=0
-done=0
-classCache:
-tokenCache:
-compilerCache:
-nonnativeSelectorCache:
-hasOwn = ({}).hasOwnProperty
-arr = []
-pop = arr.pop
-push_narive = arr.push
-push = arr.push
-slice = arr.slice
-booleans: "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped"
-whitespace: "[\\x20\\t\\r\\n\\f]" 공백 문자
-identifier: "(?:\\\\.|[\\w-]|[^\0-\\xa0])+" : ??
-attributes : 속성 값
-pseudos :
-rwhitespace = new RegExp( whitespace + "+", "g" )
-rtrim: new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g" ),
-rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
-rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*" ),
-rdescend = new RegExp( whitespace + "|>" ),
-
-rpseudo = new RegExp( pseudos ),
-ridentifier = new RegExp( "^" + identifier + "$" ),
-
-matchExpr = {
+* setDocument
+* document
+* docElem
+* documentIsHTML
+* rbuggyQSA
+* rbuggyMatches
+* matches
+* contains
+* expando: "sizzle"+1 * new Data() // 리미트?
+* preferredDoc : window.document
+* dirruns=0
+* done=0
+* classCache:
+* tokenCache:
+* compilerCache:
+* nonnativeSelectorCache:
+* hasOwn = ({}).hasOwnProperty
+* arr = []
+* pop = arr.pop
+* push_narive = arr.push
+* push = arr.push
+* slice = arr.slice
+* booleans: "checked|selected|async|autofocus|autoplay|controls|defer|* disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped"
+* whitespace: "[\\x20\\t\\r\\n\\f]" 공백 문자
+* identifier: "(?:\\\\.|[\\w-]|[^\0-\\xa0])+" : ??
+* attributes : 속성 값
+* pseudos :
+* rwhitespace = new RegExp( whitespace + "+", "g" )
+* rtrim: new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + * whitespace + "+$", "g" ),
+* rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
+* rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace * + ")" + whitespace + "*" ),
+* rdescend = new RegExp( whitespace + "|>" ),
+* 
+* rpseudo = new RegExp( pseudos ),
+* ridentifier = new RegExp( "^" + identifier + "$" ),
+* 
+* matchExpr = {
   "ID": new RegExp( "^#(" + identifier + ")" ),
   "CLASS": new RegExp( "^\\.(" + identifier + ")" ),
   "TAG": new RegExp( "^(" + identifier + "|[*])" ),
@@ -65,14 +65,14 @@ matchExpr = {
     whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
 },
 
-rhtml = /HTML$/i
-rinputs = /^(?:input|select|textarea|button)$/i
-rheader = /^h\d$/i
-rnative = /^[^{]+\{\s*\[native \w/
-// Easily-parseable/retrievable ID or TAG or CLASS selectors
-rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/
-rsibling = /[+~]/
-rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
+* rhtml = /HTML$/i
+* rinputs = /^(?:input|select|textarea|button)$/i
+* rheader = /^h\d$/i
+* rnative = /^[^{]+\{\s*\[native \w/
+* // Easily-parseable/retrievable ID or TAG or CLASS selectors
+* rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/
+* rsibling = /[+~]/
+* rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
 
 ### Fn
 * sortOrder : 중복 검사 (hasDuplicate)

@@ -911,6 +911,9 @@
   var arrayProto = Array.prototype;
   var arrayMethods = Object.create(arrayProto);
 
+  /**
+   * noti할 array 함수 중 일부
+   */
   var methodsToPatch = [
     'push',
     'pop',
@@ -958,6 +961,7 @@
    * In some cases we may want to disable observation inside a component's
    * update computation.
    */
+  // 옵져버 여부
   var shouldObserve = true;
 
   function toggleObserving (value) {
@@ -970,10 +974,13 @@
    * object's property keys into getter/setters that
    * collect dependencies and dispatch updates.
    */
+  /*
+  옵져버 - 값을 ?? 옵져버 한다
+   */
   var Observer = function Observer (value) {
     this.value = value;
     this.dep = new Dep();
-    this.vmCount = 0;
+    this.vmCount = 0; // 참조 건수
     def(value, '__ob__', this);
     if (Array.isArray(value)) {
       if (hasProto) {
@@ -992,6 +999,7 @@
    * getter/setters. This method should only be called when
    * value type is Object.
    */
+  // walk defineReactive
   Observer.prototype.walk = function walk (obj) {
     var keys = Object.keys(obj);
     for (var i = 0; i < keys.length; i++) {
@@ -1014,6 +1022,9 @@
    * Augment a target Object or Array by intercepting
    * the prototype chain using __proto__
    */
+  /*
+  * proto가 있는 경우 - 참조 추가
+  **/
   function protoAugment (target, src) {
     /* eslint-disable no-proto */
     target.__proto__ = src;
@@ -1025,6 +1036,9 @@
    * hidden properties.
    */
   /* istanbul ignore next */
+  /*
+  값인 경우 값을 target에 복사
+  */
   function copyAugment (target, src, keys) {
     for (var i = 0, l = keys.length; i < l; i++) {
       var key = keys[i];
@@ -1037,6 +1051,11 @@
    * returns the new observer if successfully observed,
    * or the existing observer if the value already has one.
    */
+  /*
+  Object가 이니고 VNode일 경우 return.
+  object의 경우 observe 설정
+  vmCount 참조 건수
+  */
   function observe (value, asRootData) {
     if (!isObject(value) || value instanceof VNode) {
       return
@@ -1072,6 +1091,7 @@
     var dep = new Dep();
 
     var property = Object.getOwnPropertyDescriptor(obj, key);
+    // 수정할 수 없다면. 
     if (property && property.configurable === false) {
       return
     }
@@ -1084,6 +1104,7 @@
     }
 
     var childOb = !shallow && observe(val);
+    // 설정 정보
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,

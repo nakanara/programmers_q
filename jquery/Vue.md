@@ -1,5 +1,18 @@
 # Vue
 
+## index
+* core/index.js : 
+* core/instance/index.js
+* core/util/env
+* core/vdom/create-functional-component
+* global-api/index
+
+
+## core
+
+* index.js
+> 
+
 * emptyObject: Object.freeze({})
 
 ## fn
@@ -204,3 +217,5 @@ Object.defineProperty(obj, key, {value:1, writable:true|false}: 프로퍼티 값
 * void: 원시적 값 평가 undefined 를 표현하기 위해 void 0 으로 처리하는 경우도 있음
 > void 0 === '2' // undefined === '2' // false
 > void (2 === '2') // undefined
+
+* hasOwnProperty: 객체가 특정 프로퍼티를 가지고 있었는지 판단

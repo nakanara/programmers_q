@@ -87,7 +87,7 @@ function solution(n) {
     //console.log(`${n} ==> ${answer}`)
   }  
   
-  return answer.reverse().join('');
+  console.log(answer.reverse().join(''));
 }
 
 console.log( solution(25));

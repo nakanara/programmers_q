@@ -74,7 +74,7 @@ function solution(n, costs) {
     }
   }
 
-  console.log(path);
+  // console.log(path);
   return answer;
 }
 
