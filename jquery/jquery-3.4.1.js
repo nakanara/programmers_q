@@ -86,7 +86,7 @@ var isFunction = function isFunction( obj ) {
       return typeof obj === "function" && typeof obj.nodeType !== "number";
   };
 
-
+// window 라면
 var isWindow = function isWindow( obj ) {
 		return obj != null && obj === obj.window;
 	};
@@ -101,7 +101,7 @@ var isWindow = function isWindow( obj ) {
 		noModule: true
 	};
 
-  // 스크립트를 이용하여 동적 스크립트 생성
+  // 스크립트를 이용하여 동적 스크립트 생성 후 삭제
 	function DOMEval( code, node, doc ) {
 		doc = doc || document;
 
@@ -138,6 +138,7 @@ function toType( obj ) {
 	}
 
 	// Support: Android <=2.3 only (functionish RegExp)
+	// 속성 확인
 	return typeof obj === "object" || typeof obj === "function" ?
 		class2type[ toString.call( obj ) ] || "object" :
 		typeof obj;
@@ -163,6 +164,7 @@ var
 	// Make sure we trim BOM and NBSP
 	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
 
+	// jQuery 함수.
 jQuery.fn = jQuery.prototype = {
 
 	// The current version of jQuery being used
@@ -173,6 +175,7 @@ jQuery.fn = jQuery.prototype = {
 	// The default length of a jQuery object is 0
 	length: 0,
 
+	// 복사 
 	toArray: function() {
 		return slice.call( this );
 	},
@@ -182,6 +185,7 @@ jQuery.fn = jQuery.prototype = {
 	get: function( num ) {
 
 		// Return all the elements in a clean array
+		// 배열은 복사 해서 전달
 		if ( num == null ) {
 			return slice.call( this );
 		}
@@ -192,13 +196,14 @@ jQuery.fn = jQuery.prototype = {
 
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
+	// 새로운 객체에 데이터를 merge 하여 돌려 줌, 이전 객체는 prevObject에 담아둠
 	pushStack: function( elems ) {
 
 		// Build a new jQuery matched element set
 		var ret = jQuery.merge( this.constructor(), elems );
 
 		// Add the old object onto the stack (as a reference)
-		ret.prevObject = this;
+		ret.prevObject = this; // 이전 객체
 
 		// Return the newly-formed element set
 		return ret;
@@ -351,6 +356,7 @@ jQuery.extend( {
 		return typeof Ctor === "function" && fnToString.call( Ctor ) === ObjectFunctionString;
 	},
 
+	// 비어 있는지 여부. 
 	isEmptyObject: function( obj ) {
 		var name;
 
@@ -417,6 +423,7 @@ jQuery.extend( {
 
 	// Support: Android <=4.0 only, PhantomJS 1 only
 	// push.apply(_, arraylike) throws on ancient WebKit
+	// 첫번째 배열에 뒷 배열 붙이기
 	merge: function( first, second ) {
 		var len = +second.length,
 			j = 0,
@@ -469,6 +476,7 @@ jQuery.extend( {
 
 		// Go through every key on the object,
 		} else {
+			// 맵인 경우
 			for ( i in elems ) {
 				value = callback( elems[ i ], i, arg );
 
@@ -495,6 +503,7 @@ if ( typeof Symbol === "function" ) {
 }
 
 // Populate the class2type map
+// 객체 속성
 jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
 function( i, name ) {
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
@@ -587,6 +596,7 @@ var i,
 		return -1;
 	},
 
+	// 속성
 	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
 
 	// Regular expressions
