@@ -52,6 +52,7 @@ toType // 해당 object의 유형을 돌려준다.
 
 * jQuery.extend  // 객체 복사.
 * Symbol.iterator // 반복?
+* fn[expando] = true;
 
 ### jQuery.extend
 * expando // UUID
@@ -86,6 +87,22 @@ toType // 해당 object의 유형을 돌려준다.
 * documentIsHTML ; XML 여부
 * support 
 *  - attributes = assert = (el) => el.getAttribute("className") // ??
+*  - getElementByTagName = (el) // 해당 el에 전체 tag 수
+*  - getElementByClassname // getElementsByClassName // 지원여부
+*  - getById (el) // el를 docElem에 추가하여 getElementsByName 지원여부 확인
+*  - qsa // querySelectorAll
+* Expr
+*  - find[ID] // ID를 getElementById, getAttributeNode 등 지원하는 방식으로 찾는 기능 정의
+*  - find[TAG] // TAG명으로 찾기 getElemenesByTagName(tag)
+> support.qsa 지원시 querySelectorAll 로 사용.
+*  - find[CLASS] // getElementsByClassName로 검색
+* rbuggyQSA : 지원 태그 정리
+* Expr
+*  - cacheLength=50 // cache 길이 
+*  createPseudo
+
+
+
 
 
 * sortOrder // 중복 비교
@@ -94,12 +111,16 @@ toType // 해당 object의 유형을 돌려준다.
 * funescape // 높이 가져오기?
 * fcssescape  // ?
 * unloadHandler -> setDocument() -- 페이지가 해제되면 unloadHandler 를 호출하여 document를 원복한다.
-* setDocument(node) : node가 없다면, window.document
+* setDocument(node) : node가 없다면, window.document에 unload 이벤트 등록
 > window.addEventListener :IE11, Edge --- 
 >   window.addEventListener('unload, unloadHandler, false)
 > window.attachEvent: IE9, IE10 only
 >   window.attachEvent("onunload, unlaodHandler);
-* isXML
+* isXML // html 여부.
+* matches // ?
+* matchesSelector
+* getText // 노드에 텍스트 명
+* 
 
 ### 참고
 "jQuery + (version + Math.random() ).replace(/\D/g, "") // 숫자만 남기기 UUID
@@ -164,7 +185,9 @@ rhtml = /HTML$/i,
 rinputs = /^(?:input|select|textarea|button)$/i,
 rheader = /^h\d$/i,
 
-rnative = /^[^{]+\{\s*\[native \w/,
+
+* rnative = /^[^{]+\{\s*\[native \w/
+> 브라우저 기본 기능의 경우 [native code] 로 시작
 
 // Easily-parseable/retrievable ID or TAG or CLASS selectors
 rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
