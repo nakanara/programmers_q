@@ -41,6 +41,7 @@ DOMEval = (code, node, doc) => {...}
 > doc.head.appendChild(script).parentNode.removeChild(script);
 
 toType // 해당 object의 유형을 돌려준다.
+boolHook : set attribute
 
 
 ## jQuery
@@ -98,8 +99,56 @@ toType // 해당 object의 유형을 돌려준다.
 *  - find[CLASS] // getElementsByClassName로 검색
 * rbuggyQSA : 지원 태그 정리
 * Expr
-*  - cacheLength=50 // cache 길이 
-*  createPseudo
+* - cacheLength=50 // cache 길이 
+* - createPseudo = markFunction
+* - match : matchExpr - attribute regexp 정의
+* - attrHandler : match 를 기준으로 속성 분리
+* - find
+* - relative 
+> ">": { dir: "parentNode", first: true },  
+  " ": { dir: "parentNode" },  
+  "+": { dir: "previousSibling", first: true },  
+  "~": { dir: "previousSibling" }
+* - perFilter : 
+> ATTR : 속성 존재 여부 
+> CHILD
+> PSEUDO
+* - filter
+> TAG
+> CLASS
+> ATTR
+> > ">": { dir: "parentNode", first: true },
+		" ": { dir: "parentNode" },
+		"+": { dir: "previousSibling", first: true },
+		"~": { dir: "previousSibling" }
+> CHILD
+> PSEUDO
+* - pseudos
+> not 
+> has : 존재 여부
+> contains: 존재 여부
+> lang: 
+> target
+> root // 
+> focus
+> enabled: createDisabledPseudo(false)
+> disabled: createDisabledPseudo(true)
+> checked: 선택 여부 (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
+> selected: 선택 여부. parentNode.selectedIndex
+> empty: 
+> parent:
+> header: Header 여부
+> input : input 여부
+> button
+> text: 
+> first
+> last
+> eq
+> even
+> odd
+> lt
+> gt
+> nth == eq와 동일
 
 
 
@@ -120,11 +169,23 @@ toType // 해당 object의 유형을 돌려준다.
 * matches // ?
 * matchesSelector
 * getText // 노드에 텍스트 명
-* 
+* markFunction : fn에 expando 에 true값 설정 후 돌려 줌 // ?
+
 
 ### 참고
 "jQuery + (version + Math.random() ).replace(/\D/g, "") // 숫자만 남기기 UUID
 
+### ElementNode TYPE
+
+|노드명|Type|설명|
+|---|---|---|
+|Node.ELEMENT_NODE|1|Element노드 등 <p>또는<div>.|
+|Node.TEXT_NODE|3|실제 Text의 Element나 Attr.|
+|Node.PROCESSING_INSTRUCTION_NODE|7|ProcessingInstructionXML 문서의 같은 <?xml-stylesheet ... ?>선언.|
+|Node.COMMENT_NODE|8|A Commentnode.|
+|Node.DOCUMENT_NODE|9|A Documentnode.|
+|Node.DOCUMENT_TYPE_NODE|10|DocumentType노드 예를 들어, <!DOCTYPE html>HTML5 문서.|
+|Node.DOCUMENT_FRAGMENT_NODE|11|A DocumentFragmentnode.|
 ### REGEXP
 rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g; // 공백 제거 trim().
 
