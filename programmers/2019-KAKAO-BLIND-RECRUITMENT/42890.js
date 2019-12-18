@@ -159,7 +159,14 @@ function solution1(relation) {
   
   answer.sort((a,b) => a.length - b.length);
   console.log(answer);
-  
+  for(let i=0; i < answer.length; i++) {
+    let arrA = answer[i];
+    for(let j=i+1; j < answer.length; j++ ) {
+
+      for(let z=0;)
+    }
+  }
+
   return answer.length;
 }
 

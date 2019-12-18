@@ -2972,6 +2972,7 @@ var rootjQuery,
 				match = [ null, selector, null ];
 
 			} else {
+				// todo ??
 				match = rquickExpr.exec( selector );
 			}
 
