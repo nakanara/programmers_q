@@ -78,6 +78,7 @@
    */
   var _toString = Object.prototype.toString;
 
+  // Ojbect 등 판단.
   function toRawType (value) {
     return _toString.call(value).slice(8, -1)
   }

@@ -124,6 +124,11 @@
  *     }
  *   ]
  * }
+ * 
+ * todo
+ * 1. 스크롤 방식 수정
+ * 2. 모달 창 최상위 나타나도록 z-index 수정
+ * 
  */
   if(window.modal) return;
   
@@ -191,6 +196,7 @@
       btn_temp += `<label data-btn-idx='${i}' class="btn ${(b['cls'])? 'btn-' + b['cls']:'btn-default'}">${b['label']}</label>`;
     }
 
+    // todo innerHTML 이 아닌 방식으로 생성
     let template = 
     `
     <div data-modal-idx='${modalCount}' class='modal modal-container'>
@@ -244,8 +250,9 @@
     let conf = modalStack[modalCount-1]; // 마지막 정보
     let btn = conf.btns[btnIdx]; // 클릭된 정보
 
+    // todo 버튼 call or apply 로 수정
     if(typeof btn['callfn'] === 'function') {
-      btn['callfn']();
+      btn['callfn'](); 
     }
   }
 
@@ -292,6 +299,7 @@
   })
 }
  </script>
+ <!--
 <div class="modal-cover"><div class="modal-background modal-1" style="display: block;">
     <div data-modal-idx="1" class="modal modal-container">
       <div class="modal-title">
@@ -304,3 +312,4 @@
       </div>
     </div>
     </div></div></body></html>
+-->

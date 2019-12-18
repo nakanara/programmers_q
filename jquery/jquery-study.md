@@ -41,6 +41,7 @@ DOMEval = (code, node, doc) => {...}
 > doc.head.appendChild(script).parentNode.removeChild(script);
 
 toType // 해당 object의 유형을 돌려준다.
+contains // 데이터 존재 여부 비교
 
 
 ## jQuery
@@ -91,12 +92,14 @@ toType // 해당 object의 유형을 돌려준다.
 *  - getElementByClassname // getElementsByClassName // 지원여부
 *  - getById (el) // el를 docElem에 추가하여 getElementsByName 지원여부 확인
 *  - qsa // querySelectorAll
+*  - disconnectedMatch // ie9
 * Expr
 *  - find[ID] // ID를 getElementById, getAttributeNode 등 지원하는 방식으로 찾는 기능 정의
 *  - find[TAG] // TAG명으로 찾기 getElemenesByTagName(tag)
 > support.qsa 지원시 querySelectorAll 로 사용.
 *  - find[CLASS] // getElementsByClassName로 검색
 * rbuggyQSA : 지원 태그 정리
+* rbuggyMatches
 * Expr
 *  - cacheLength=50 // cache 길이 
 *  createPseudo
@@ -120,7 +123,21 @@ toType // 해당 object의 유형을 돌려준다.
 * matches // ?
 * matchesSelector
 * getText // 노드에 텍스트 명
+* nonnativeSelectorCache
+* contains // ??
+* attr // attribute
+* secape // replace
+* error
 * 
+
+### 확인필요
+* doc.matches
+* doc.webkitMatchesSelector
+* doc.mozMatchesSelector
+* doc.oMatchesSelector
+* doc.msMatchesSelector
+* doc.compareDocumentPosition
+* doc.contains 
 
 ### 참고
 "jQuery + (version + Math.random() ).replace(/\D/g, "") // 숫자만 남기기 UUID
