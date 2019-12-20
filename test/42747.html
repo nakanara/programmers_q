@@ -156,6 +156,7 @@ body.modal{
   let fnSel = doc.querySelector.bind(doc);
   let elBody =  doc.querySelector('body'); // body
   let elModalCover = null; // 모달
+  let modalZindex = 1;
 
   /**
    * 처음일 경우 본문을 덮을 div
@@ -169,7 +170,8 @@ body.modal{
 
     elBody.appendChild(elModalCover);
 
-    fnMaxZIndex();
+    modalZindex = fnMaxZIndex()+ 10;
+    elModalCover.style.zIndex = modalZindex;
   }
 
   /**
@@ -222,6 +224,7 @@ body.modal{
     let modal = fnCre('div');
     conf.elId = modal;
     modal.classList.add('modal-background', `modal-${modalCount}`);
+    modal.style.zIndex = (modalZindex+modalCount);
     
     let btn_temp = '';
     for(let i=0; i < btns.length; i++) {
@@ -308,13 +311,24 @@ body.modal{
 
   const fnMaxZIndex = () => {
     let els = [...doc.querySelectorAll('body *')];
+    let maxZindex = 1;
+    let size = els.length,
+      i =size;
 
-    let elsMap = els.map( el => {
-      console.log(`${el.classList} / ${el.style.position} << position`);
-      return el.style.zIndex || 1;
-    });
+    els.forEach( (el) => {
+      let zIndex = doc.defaultView.getComputedStyle(el,null).getPropertyValue("z-index");
+      if(!isNaN(zIndex)) {
+        maxZindex = (maxZindex < zIndex)? zIndex : maxZindex;
+      }
+    })
 
-    console.log(elsMap);
+    // let elsMap = els.map( el => {
+    //   let zIndex = doc.defaultView.getComputedStyle(el,null).getPropertyValue("z-index");
+    //   console.log(`${el.classList} / ${el.style.position} << position ${zIndex} < zIndex`);
+    //   return zIndex || 1;
+    // });
+
+    return Number(maxZindex);
   }
 
   modal.open = openModal;
