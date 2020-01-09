@@ -88,7 +88,7 @@ function solution(n, password) {
   let gap = MIN_LEN - len;
 
   // console.log(`success=${success} // gap = ${gap} // len ${len} // pow = ${Math.abs(gap)} `)
-  return Math.max( (MIN_LEN - len), success)
+  return Math.max( (MIN_LEN - len), success);
 }
 
 console.log( solution(3 , 'Ab1')); // 3
