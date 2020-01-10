@@ -58,8 +58,7 @@ baab → bb → Empty Strin
 
 
 function solution(s) {
-  let answer = '';
-  let len = s.length;
+  let answer = '';  
 
   const zipWord = (word) => {
     let wLen = word.length;
@@ -91,8 +90,6 @@ function solution(s) {
     temp = answer;    
     answer = zipWord(temp);
   }
-
-  
   
   return (s === answer || answer === '')? 'Empty String' : answer;
 }
