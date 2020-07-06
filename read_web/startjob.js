@@ -1,7 +1,7 @@
 'use strict';
 
 let ReadWebPage = require('./web/ReadWebPage');
-
+let DBConnect = require('./db/DBConnect');
 
 var url = 'https://finance.daum.net/quotes/';
 var code = 'A086900';
@@ -9,8 +9,9 @@ var code = 'A086900';
 //var url = 'https://www.reddit.com';
 // var url = "https://www.google.com";
 
- let readWebPage = new ReadWebPage(url, code, true)
+//  let readWebPage = new ReadWebPage(url, code, true)
  //readWebPage.read();
- readWebPage.readFile('/F1593574328137.html');
+//  readWebPage.readFile('/F1593574328137.html');
 
 
+DBConnect.asyncFunction();
