@@ -62,8 +62,8 @@ class ReadWebPage {
     let html = (await page.content());
   
     if(this.isFile) {
-      fs.writeFile( '/'+this.filename+ '.html', html, 'utf-8', function(err) {
-        console.log('비동기적 파일 쓰기 완료');
+      fs.writeFile( '/'+this.filename+ '.html', html, 'utf-8', (err) => {
+        console.log(this.filename + '//비동기적 파일 쓰기 완료');
       });
     }
   
@@ -72,7 +72,7 @@ class ReadWebPage {
 
     await browser.close();
   
-    parseData(html);
+    this.parseData(html);
         
   }
 
