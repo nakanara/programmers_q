@@ -15,7 +15,14 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+<<<<<<< HEAD
     "mariadb": "^2.4.1",
+=======
+    "iconv-lite": "^0.6.1",
+    "mariadb": "^2.4.1",
+    "node-gyp": "^7.0.0",
+    "parsoid": "^0.11.0",
+>>>>>>> 52fb312e3242c3a676311231fcfa729a6e54a75b
     "properties-reader": "^2.0.0",
     "puppeteer": "^4.0.1",
     "request": "^2.88.2",
