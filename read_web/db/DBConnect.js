@@ -1,5 +1,6 @@
 const mariadb = require('mariadb');
 const properties = require('../util/ConfUtil');
+const Logs = require('../util/Logs');
 
 const pool = mariadb.createPool({
      host: properties.getValue('db.host'), // 'mysql-nakanara.alwaysdata.net', 
@@ -11,6 +12,26 @@ const pool = mariadb.createPool({
 });
 
 class DBConnect {
+
+  static async update(updateSql, params = [], fnCB){
+    let conn;
+
+    try{
+
+      conn = await pool.getConnection();
+      
+      Logs.info(updateSql);
+      
+      const rows = await conn.query(updateSql, params);
+      Logs.info(rows);
+
+      if(fnCB) fnCB.call(null, rows);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) return conn.end();
+    }
+  }
 
   static async asyncFunction() {
     let conn;

@@ -7,7 +7,7 @@ let fs        = require('fs');
 let puppeteer = require('puppeteer');
 let utils     = require('../util/Utils');
 let StockItem = require('../stock/StockItem');
-
+const DBConnect = require('../db/DBConnect');
 
 
 class ReadWebPage {
@@ -40,7 +40,8 @@ class ReadWebPage {
         return;
       }
 
-      this.parseData(html);
+      let stockItem = this.parseData(html);
+      
       
     })
   }

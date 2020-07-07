@@ -1,0 +1,8 @@
+<sqls>
+  <sql id="update_stock_item">
+  UPDATE STOCK_ITEM_STATUS
+  SET A = A, 
+      REG_DT = #{REG_DT}
+      WHERE 1=1
+  </sql>
+</sqls>
