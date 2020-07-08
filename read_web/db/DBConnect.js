@@ -2,18 +2,37 @@ const mariadb = require('mariadb');
 const properties = require('../util/ConfUtil');
 const Logs = require('../util/Logs');
 
+
 const pool = mariadb.createPool({
-     host: properties.getValue('db.host'), // 'mysql-nakanara.alwaysdata.net', 
-     port: properties.getValue('db.port'), //3306,
-     user: properties.getValue('db.user'), //'nakanara', 
-     password: properties.getValue('db.password'), //'2011ghdzhd1!',
-     database: properties.getValue('db.database'), //'nakanara_app_2020_01',
+     host: properties.getValue('db.host'),
+     port: properties.getValue('db.port'),
+     user: properties.getValue('db.user'),
+     password: properties.getValue('db.password'), 
+     database: properties.getValue('db.database'), 
      connectionLimit: 5
 });
 
-class DBConnect {
 
-  static async update(updateSql, params = [], fnCB){
+class DBConnect {
+  
+  static async select(selectSql, fnCB, params = {}) {
+    let conn;
+
+    try{
+
+      conn = await pool.getConnection();
+      
+      const rows = await conn.query(selectSql, params);
+      
+      if(fnCB) fnCB.call(null, rows);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) return conn.end();
+    }
+
+  }
+  static async update(updateSql, fnCB, params = []){
     let conn;
 
     try{

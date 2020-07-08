@@ -1,4 +1,10 @@
 <sqls>
+
+
+  <sql id="get_stock_items" desc="종목코드 조회">
+    SELECT STOCK_ID, STOCK_TYPE, STOCK_NAME FROM STOCK_COMP
+  </sql>
+
   <sql id="update_stock_item">
   UPDATE STOCK_ITEM_STATUS
   SET A = A, 

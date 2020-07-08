@@ -1,8 +1,7 @@
 'use strict';
 
-let ReadWebPage = require('./web/ReadWebPage');
-let DBConnect = require('./db/DBConnect');
-let SQL_Reader = require('./sql/SQL_Reader');
+const ReadWebPage = require('./web/ReadWebPage');
+const Sqls = require('./db/Sqls');
 
 var url = 'https://finance.daum.net/quotes/';
 var code = 'A086900';
@@ -16,8 +15,11 @@ var code = 'A086900';
 
 
 // DBConnect.asyncFunction();
+//sqlReader.loadSQL();
+// sqlReader.getSQL('STOCK_ITEM', 'update_stock_item');
 
 
-let sqlReader = new SQL_Reader();
-sqlReader.loadSQL();
-//sqlReader.getSQL('STOCK_ITEM', 'update_stock_item')
+let sqls = new Sqls();
+sqls.select('STOCK_ITEM', 'get_stock_items', (data) =>  console.log(data) );
+
+

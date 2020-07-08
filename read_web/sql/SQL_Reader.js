@@ -1,42 +1,51 @@
 const fs = require('fs');
-const Logs = require('../util/Logs');
-let cheerio   = require('cheerio');
+const logs = require('../util/Logs');
+const cheerio   = require('cheerio');
+
+const sqlPath = './sql/resource/';
+const lastLen = '.xml'.length;
+
 
 class SQL_Reader {
 
   constructor(){
 
     this.sql_module =  new Map();
-
-    
+    this.loadSQL();
+  
   }
 
   async loadSQL() {
-    fs.readFile('./sql/STOCK_ITEM.xml', {encoding: 'utf-8'}, (err, data) => {
+    
+    
+    let files =  fs.readdirSync(sqlPath, {encoding: 'utf-8'});
 
-      if(err) {
-        Logs.err(err);
-        return;
+    
+    for(let f of files) {
+
+      logs.info(`file = ${f}`);
+
+      if( !/(.xml)$/i.test(f)) {        
+        continue;
       }
-      console.log(data);
 
-      let $ = cheerio.load(data);
-      this.sql_module['STOCK_ITEM'] = $;
+      let fname = f.substr(0, f.length - lastLen).toUpperCase() ;
 
-      //console.log(this.sql_module);
-
-      this.getSQL('STOCK_ITEM', 'update_stock_item');
-    })
-  }
-
+      logs.info(`fname = ${fname}`)
   
 
+      var data = fs.readFileSync(`${sqlPath}${f}`, {encoding: 'utf-8'})          
+      let $ = cheerio.load(data);
+      this.sql_module[fname] = $;
+      
+    }
+  }
+
   getSQL(module, id) {
-    let $ = this.sql_module['STOCK_ITEM'] || {}
+    let $ = this.sql_module[module] || {}
     var sql = $('sql[id=' + id + ']').text();
     
-    Logs.info(sql);
-
+    return sql;
   }
 
 }

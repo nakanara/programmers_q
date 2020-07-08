@@ -1,0 +1,5 @@
+<sqls>
+  <sql id="test_sq">
+  SELECT * FROM TEST
+  </sql>
+</sqls>
