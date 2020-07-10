@@ -31,22 +31,46 @@ class SQL_Reader {
 
       let fname = f.substr(0, f.length - lastLen).toUpperCase() ;
 
-      logs.info(`fname = ${fname}`)
-  
-
-      var data = fs.readFileSync(`${sqlPath}${f}`, {encoding: 'utf-8'})          
+      let data = fs.readFileSync(`${sqlPath}${f}`, {encoding: 'utf-8'})          
       let $ = cheerio.load(data);
       this.sql_module[fname] = $;
       
     }
   }
 
-  getSQL(module, id) {
+  getSQL(module, id, params) {
     let $ = this.sql_module[module] || {}
     var sql = $('sql[id=' + id + ']').text();
     
-    return sql;
+
+    return this.parseParams(sql, params);
+    
+    
   }
+
+  /**
+   * 
+   * @param {} sql SQL 문장
+   * @param {*} data  매핑 value
+   */
+  parseParams(sql, data = {}) {   
+     
+    let regexp = new RegExp(/#{([a-zA-Z0-9_])+}/g);
+    let arrParams = [];
+
+    sql = sql.replace(regexp, function(v) {
+        let c = v.substr(2, v.length-3);
+        let d = data[c];
+        
+        arrParams.push((d === undefined)? '': d);
+        return '?';
+    });
+    return {
+      sql : sql, 
+      arr: arrParams
+    } ;
+
+}
 
 }
 

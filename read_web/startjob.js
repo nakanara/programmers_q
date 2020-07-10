@@ -20,6 +20,28 @@ var code = 'A086900';
 
 
 let sqls = new Sqls();
-sqls.select('STOCK_ITEM', 'get_stock_items', (data) =>  console.log(data) );
+// sqls.select('STOCK_ITEM', 'get_stock_items', {}, (data) =>  {
+
+// } );
+
+
+sqls.select('STOCK_ITEM', 'get_stock_items', {STOCK_NAME: '동화약품'}, (data) =>  {
+
+
+  // console.log(data);
+  console.log(`${data[0]['STOCK_ID']}`);
+
+  data.forEach((d, i) => {
+
+    console.log(d);
+    sqls.insert('STOCK_ITEM', 'add_stock_item', d, (data) => {
+      console.log(data);
+    });
+
+  });
+
+
+
+});
 
 

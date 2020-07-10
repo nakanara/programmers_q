@@ -9,43 +9,69 @@ const pool = mariadb.createPool({
      user: properties.getValue('db.user'),
      password: properties.getValue('db.password'), 
      database: properties.getValue('db.database'), 
-     connectionLimit: 5
+     connectionLimit: properties.getValue('db.connectionLimit')
 });
 
 
 class DBConnect {
-  
-  static async select(selectSql, fnCB, params = {}) {
+   
+
+  static async select(sql, arrParams = [], fnCB) {
     let conn;
 
     try{
 
       conn = await pool.getConnection();
       
-      const rows = await conn.query(selectSql, params);
+      Logs.info(`sql=${sql} \n\tparams=${arrParams}`);
+
+      const rows = await conn.query(sql, arrParams);
       
       if(fnCB) fnCB.call(null, rows);
     } catch (err) {
+      Logs.err(err);
       throw err;
     } finally {
       if (conn) return conn.end();
     }
 
   }
-  static async update(updateSql, fnCB, params = []){
+
+  static async insert(sql, arrParams = [], fnCB){
     let conn;
 
     try{
 
       conn = await pool.getConnection();
       
-      Logs.info(updateSql);
+      Logs.info(`sql=${sql} \n\tparams=${arrParams}`);
       
-      const rows = await conn.query(updateSql, params);
-      Logs.info(rows);
+      const rows = await conn.query(sql, arrParams);
+      
+      if(fnCB) fnCB.call(null, rows);
+    } catch (err) {
+      Logs.err(err);
+      throw err;
+    } finally {
+      if (conn) return conn.end();
+    }
+  }
+ 
+
+  static async update(sql, arrParams = [], fnCB){
+    let conn;
+
+    try{
+
+      conn = await pool.getConnection();
+      
+      Logs.info(`sql=${sql} \n\tparams=${arrParams}`);
+      
+      const rows = await conn.query(sql, arrParams);
 
       if(fnCB) fnCB.call(null, rows);
     } catch (err) {
+      Logs.err(err);
       throw err;
     } finally {
       if (conn) return conn.end();

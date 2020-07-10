@@ -4,7 +4,7 @@
   "description": "Read Web Page",
   "main": "startjob.js",
   "scripts": {
-    "start": "node startjob.js",
+    "start": "set RUN_MODE=dev&& node startjob.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

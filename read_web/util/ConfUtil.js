@@ -1,7 +1,9 @@
 const confProperties = require('properties-reader');
 const PropertiesReader = require('properties-reader');
 
-const properties = PropertiesReader('conf.properties');
+
+const run_mode = process.env.RUN_MODE;
+const properties = PropertiesReader(`${run_mode}.conf.properties`);
 
 module.exports = {
   getValue(key) {

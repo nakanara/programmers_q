@@ -1,8 +1,16 @@
 <sqls>
 
 
+<!-- WHERE STOCK_NAME = #{STOCK_NAME} -->
   <sql id="get_stock_items" desc="종목코드 조회">
     SELECT STOCK_ID, STOCK_TYPE, STOCK_NAME FROM STOCK_COMP
+  </sql>
+
+  <sql id="add_stock_item">
+    INSERT INTO STOCK_ITEM_STATUS
+    (SIS_DD, SIS_STOCK_ID, SIS_COMPANY)
+    VALUES
+    (DATE_FORMAT(NOW(), '%Y%m%d'), #{STOCK_ID}, #{STOCK_NAME})
   </sql>
 
   <sql id="update_stock_item">

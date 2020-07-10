@@ -9,14 +9,26 @@ class Sqls {
     
   }
 
-  select(module, id, fnCB, params = {}) {
+  async select(module, id, params = {}, fnCB) {
     
-    let sql = sqlReader.getSQL(module, id);
-    
-    Logs.info(`call select sql= ${sql}`);
-    DBConnect.select(sql, fnCB, params);
+    let sqlInfo = sqlReader.getSQL(module, id, params);
+        
+    Logs.info(`call select sql= ${sqlInfo.sql} // ${sqlInfo.arr}`);
+    await DBConnect.select(sqlInfo.sql, sqlInfo.arr, fnCB);
+  }
+  
+  async insert(module, id, params = {}, fnCB) {
+
+    let sqlInfo = sqlReader.getSQL(module, id, params);
+        
+    Logs.info(`call insert sql= ${sqlInfo.sql} // ${sqlInfo.arr}`);
+    await DBConnect.insert(sqlInfo.sql, sqlInfo.arr, fnCB);
+
+
   }
 
+
+  
 
 
 }
