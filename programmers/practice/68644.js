@@ -19,12 +19,19 @@ function solution(numbers) {
     }
   }
  
-  let mm =  answer.sort((a,b) => a>b)
-      .filter((v, i) => v != answer[i+1]);
 
-      return mm;
+  // set 의 경우 중복 값이 존재하지 않으므로 set 대입 후, 배열로 변환
+  const temp = [...new Set(answer)];
+  
+  return temp.sort((a,b) => a-b);
+  
+  // 중복 제거 
+  /*
+  return answer.sort((a,b) => a-b)
+        .filter((v, i) => v !== answer[i+1]);
+  */
 
 }
 
 console.log(solution(	[2, 1, 3, 4, 1]));
-console.log(solution( [5,0,2,7]));
+//console.log(solution( [5,0,2,7]));
