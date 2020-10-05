@@ -1,16 +1,82 @@
 const mariadb = require('mariadb');
 const properties = require('../util/ConfUtil');
+const Logs = require('../util/Logs');
+
 
 const pool = mariadb.createPool({
-     host: properties.getValue('db.host'), // 'mysql-nakanara.alwaysdata.net', 
-     port: properties.getValue('db.port'), //3306,
-     user: properties.getValue('db.user'), //'nakanara', 
-     password: properties.getValue('db.password'), //'2011ghdzhd1!',
-     database: properties.getValue('db.database'), //'nakanara_app_2020_01',
-     connectionLimit: 5
+     host: properties.getValue('db.host'),
+     port: properties.getValue('db.port'),
+     user: properties.getValue('db.user'),
+     password: properties.getValue('db.password'), 
+     database: properties.getValue('db.database'), 
+     connectionLimit: properties.getValue('db.connectionLimit')
 });
 
+
 class DBConnect {
+   
+
+  static async select(sql, arrParams = [], fnCB) {
+    let conn;
+
+    try{
+
+      conn = await pool.getConnection();
+      
+      Logs.info(`sql=${sql} \n\tparams=${arrParams}`);
+
+      const rows = await conn.query(sql, arrParams);
+      
+      if(fnCB) fnCB.call(null, rows);
+    } catch (err) {
+      Logs.err(err);
+      throw err;
+    } finally {
+      if (conn) return conn.end();
+    }
+
+  }
+
+  static async insert(sql, arrParams = [], fnCB){
+    let conn;
+
+    try{
+
+      conn = await pool.getConnection();
+      
+      Logs.info(`sql=${sql} \n\tparams=${arrParams}`);
+      
+      const rows = await conn.query(sql, arrParams);
+      
+      if(fnCB) fnCB.call(null, rows);
+    } catch (err) {
+      Logs.err(err);
+      throw err;
+    } finally {
+      if (conn) return conn.end();
+    }
+  }
+ 
+
+  static async update(sql, arrParams = [], fnCB){
+    let conn;
+
+    try{
+
+      conn = await pool.getConnection();
+      
+      Logs.info(`sql=${sql} \n\tparams=${arrParams}`);
+      
+      const rows = await conn.query(sql, arrParams);
+
+      if(fnCB) fnCB.call(null, rows);
+    } catch (err) {
+      Logs.err(err);
+      throw err;
+    } finally {
+      if (conn) return conn.end();
+    }
+  }
 
   
 

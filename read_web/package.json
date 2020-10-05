@@ -4,7 +4,7 @@
   "description": "Read Web Page",
   "main": "startjob.js",
   "scripts": {
-    "start": "node startjob.js",
+    "start": "set RUN_MODE=dev&& node startjob.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -16,6 +16,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "mariadb": "^2.4.1",
 =======
     "iconv-lite": "^0.6.1",
@@ -23,6 +24,9 @@
     "node-gyp": "^7.0.0",
     "parsoid": "^0.11.0",
 >>>>>>> 52fb312e3242c3a676311231fcfa729a6e54a75b
+=======
+    "mariadb": "^2.4.1",
+>>>>>>> b4fbc8482e84ccfcef2e11eed90ae672ee55cf4e
     "properties-reader": "^2.0.0",
     "puppeteer": "^4.0.1",
     "request": "^2.88.2",
