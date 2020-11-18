@@ -19,8 +19,6 @@ W	H	result
 
 function solution(w, h) {
 
-  let total = w*h;
-
   function gcd(a, b) {
     while(b !== 0) {
       var c = a%b;
@@ -31,26 +29,11 @@ function solution(w, h) {
     return a;
   }
 
-  function fnDiv(a) {
-    for(let i=2; i < a/2; i++) {
-      if(a%i == 0) return i;
-    }
-
-    return a;
-  }
-
   let gcdVal = gcd(w, h);
-
-  let cnt = Math.pow(gcdVal, 2);
-
-  console.log(`${w/gcdVal} / ${h/gcdVal} ${cnt} gcdVal=${gcdVal}` );
-  
-  console.log(`${ total } / ${(total/gcdVal)}`);
-  return total - (total/gcdVal);
+    
+  return w*h - (w + h - gcdVal);
 
 }
 
-//console.log( solution(5,24)); // TUE
-//console.log( solution(1,7)); // THU
-console.log( solution(8,12)); // 80
-// console.log( solution(6,6)); // 80
+//console.log( solution(8,12)); // 80
+console.log( solution(1, 2)); // 80
